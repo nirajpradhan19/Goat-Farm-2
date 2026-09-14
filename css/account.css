@@ -1,0 +1,38 @@
+/* Goat Hub — account page (login/signup tabs, profile, order history) */
+
+.header-icon-link.active{ color: var(--terracotta); background: var(--cream-dark); }
+
+.account-card{ max-width: 440px; }
+.account-tabs{ display:flex; gap:6px; background: var(--cream-dark); border-radius: 50px; padding:4px; margin-bottom:28px; }
+.account-tab{
+  flex:1; border:none; background:none; cursor:pointer; padding:10px 0;
+  border-radius:50px; font-weight:700; font-size:.9rem; color: var(--ink-soft);
+  transition: all .2s;
+}
+.account-tab.active{ background:#fff; color: var(--forest-dark); box-shadow: var(--shadow-sm); }
+.account-tab-panel{ display:flex; flex-direction:column; gap:16px; text-align:left; }
+
+.account-profile-row{
+  display:flex; align-items:flex-start; justify-content:space-between; gap:20px; flex-wrap:wrap;
+  background:#fff; border-radius: var(--radius-md); border:1px solid var(--line);
+  box-shadow: var(--shadow-sm); padding: 28px 30px;
+}
+
+.orders-list{ display:flex; flex-direction:column; gap:18px; margin-top:20px; }
+.order-card{
+  background:#fff; border-radius: var(--radius-md); border:1px solid var(--line);
+  box-shadow: var(--shadow-sm); padding: 22px 26px;
+}
+.order-card-head{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:14px; }
+.order-card-head .order-id{ font-family: var(--font-display); font-size:1.1rem; color: var(--forest-dark); }
+.order-card-head .order-date{ font-size:.82rem; color: var(--ink-soft); }
+.order-status{
+  font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.04em;
+  padding: 4px 12px; border-radius:50px;
+}
+.order-status.pending{ background:#f4e3c4; color:#8a6a1f; }
+.order-status.paid{ background:#dcecdf; color: var(--forest-dark); }
+.order-status.fulfilled{ background: var(--forest); color:#fff; }
+.order-status.cancelled{ background:#f3d9d0; color: var(--terracotta-dark); }
+.order-items-line{ font-size:.9rem; color: var(--ink-soft); margin-bottom:4px; }
+.order-total{ text-align:right; font-weight:700; color: var(--forest-dark); margin-top:10px; }

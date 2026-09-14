@@ -109,6 +109,241 @@
     loadManifest().then(renderGrid);
   }
 
+  // ==================== TABS ====================
+  var loadedTabs = {};
+  document.querySelectorAll(".admin-tab").forEach(function (tab) {
+    tab.addEventListener("click", function () {
+      document.querySelectorAll(".admin-tab").forEach(function (t) {
+        t.classList.remove("active");
+      });
+      tab.classList.add("active");
+      var target = tab.dataset.tab;
+      document.querySelectorAll(".admin-tab-panel").forEach(function (panel) {
+        panel.hidden = panel.id !== "tab-" + target;
+      });
+      if (!loadedTabs[target]) {
+        loadedTabs[target] = true;
+        if (target === "inventory") loadProducts();
+        if (target === "orders") loadAdminOrders();
+      }
+    });
+  });
+
+  // ==================== INVENTORY ====================
+  var products = [];
+  var productEditor = document.getElementById("productEditor");
+  var productEditorTitle = document.getElementById("productEditorTitle");
+  var productTableWrap = document.getElementById("productTableWrap");
+  var productTableBody = document.getElementById("productTableBody");
+  var productsLoading = document.getElementById("productsLoading");
+  var productError = document.getElementById("productError");
+
+  function formatUsd(cents) {
+    return "$" + (cents / 100).toFixed(2);
+  }
+
+  function openProductEditor(product) {
+    productError.hidden = true;
+    document.getElementById("productId").value = product ? product.id : "";
+    document.getElementById("productName").value = product ? product.name : "";
+    document.getElementById("productCategory").value = product ? product.category : "";
+    document.getElementById("productPrice").value = product ? (product.price_cents / 100).toFixed(2) : "";
+    document.getElementById("productStock").value = product ? product.stock : 0;
+    document.getElementById("productDescription").value = product ? product.description : "";
+    document.getElementById("productImageUrl").value = product ? product.image_url || "" : "";
+    document.getElementById("productActive").value = product ? String(product.active) : "true";
+    productEditorTitle.textContent = product ? "Edit Product" : "New Product";
+    productEditor.hidden = false;
+    productEditor.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+
+  document.getElementById("newProductBtn").addEventListener("click", function () {
+    openProductEditor(null);
+  });
+  document.getElementById("cancelProductBtn").addEventListener("click", function () {
+    productEditor.hidden = true;
+  });
+
+  document.getElementById("saveProductBtn").addEventListener("click", function () {
+    var id = document.getElementById("productId").value;
+    var priceUsd = parseFloat(document.getElementById("productPrice").value);
+    var payload = {
+      name: document.getElementById("productName").value.trim(),
+      category: document.getElementById("productCategory").value.trim() || "General",
+      priceCents: Math.round((Number.isFinite(priceUsd) ? priceUsd : 0) * 100),
+      stock: parseInt(document.getElementById("productStock").value, 10) || 0,
+      description: document.getElementById("productDescription").value.trim(),
+      imageUrl: document.getElementById("productImageUrl").value.trim() || null,
+      active: document.getElementById("productActive").value === "true",
+    };
+
+    var url = "/api/admin/products";
+    if (id) {
+      payload.id = Number(id);
+      url = "/api/admin/product-update";
+    }
+
+    productError.hidden = true;
+    fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    })
+      .then(function (r) {
+        return r.json().then(function (d) {
+          return { ok: r.ok, data: d };
+        });
+      })
+      .then(function (result) {
+        if (result.ok) {
+          productEditor.hidden = true;
+          showBanner(id ? "Product updated." : "Product added.", "success");
+          loadProducts();
+        } else {
+          productError.textContent = (result.data && result.data.error) || "Save failed";
+          productError.hidden = false;
+        }
+      })
+      .catch(function () {
+        productError.textContent = "Network error — please try again.";
+        productError.hidden = false;
+      });
+  });
+
+  function renderProductTable() {
+    productTableBody.innerHTML = "";
+    products.forEach(function (p) {
+      var tr = document.createElement("tr");
+      tr.innerHTML =
+        "<td>" + p.name + "</td>" +
+        "<td>" + p.category + "</td>" +
+        "<td>" + formatUsd(p.price_cents) + "</td>" +
+        "<td>" + p.stock + "</td>" +
+        "<td>" + (p.active ? '<span class="active-badge">Active</span>' : '<span class="inactive-badge">Inactive</span>') + "</td>" +
+        '<td><div class="row-actions">' +
+        '<button type="button" class="btn btn-ghost btn-sm edit-product-btn">Edit</button>' +
+        '<button type="button" class="btn btn-ghost btn-sm delete-product-btn">Delete</button>' +
+        "</div></td>";
+      tr.querySelector(".edit-product-btn").addEventListener("click", function () {
+        openProductEditor(p);
+      });
+      tr.querySelector(".delete-product-btn").addEventListener("click", function () {
+        if (!confirm('Delete "' + p.name + '"? Products used in past orders are deactivated instead of deleted.')) return;
+        fetch("/api/admin/product-delete", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ id: p.id }),
+        })
+          .then(function (r) {
+            return r.json();
+          })
+          .then(function () {
+            loadProducts();
+          });
+      });
+      productTableBody.appendChild(tr);
+    });
+  }
+
+  function loadProducts() {
+    productsLoading.hidden = false;
+    productTableWrap.hidden = true;
+    fetch("/api/admin/products")
+      .then(function (r) {
+        return r.json().then(function (d) {
+          return { ok: r.ok, data: d };
+        });
+      })
+      .then(function (result) {
+        productsLoading.hidden = true;
+        if (result.ok) {
+          products = result.data.products || [];
+          productTableWrap.hidden = false;
+          renderProductTable();
+        } else {
+          showBanner((result.data && result.data.error) || "Could not load products", "error");
+        }
+      })
+      .catch(function () {
+        productsLoading.hidden = true;
+        showBanner("Network error loading products", "error");
+      });
+  }
+
+  // ==================== ORDERS ====================
+  var adminOrdersList = document.getElementById("adminOrdersList");
+  var ordersLoadingAdmin = document.getElementById("ordersLoadingAdmin");
+  var ordersEmptyAdmin = document.getElementById("ordersEmptyAdmin");
+  var STATUSES = ["pending", "paid", "fulfilled", "cancelled"];
+
+  function loadAdminOrders() {
+    ordersLoadingAdmin.hidden = false;
+    ordersEmptyAdmin.hidden = true;
+    adminOrdersList.innerHTML = "";
+
+    fetch("/api/admin/orders")
+      .then(function (r) {
+        return r.json();
+      })
+      .then(function (data) {
+        ordersLoadingAdmin.hidden = true;
+        var orders = (data && data.orders) || [];
+        if (orders.length === 0) {
+          ordersEmptyAdmin.hidden = false;
+          return;
+        }
+        orders.forEach(function (order) {
+          var card = document.createElement("div");
+          card.className = "order-card";
+          var itemsLine = order.items.map((i) => i.quantity + "× " + i.product_name).join(", ");
+          var who = order.user_name || order.user_email || order.customer_email || "Guest";
+
+          var select = document.createElement("select");
+          select.className = "order-status-select";
+          STATUSES.forEach(function (s) {
+            var opt = document.createElement("option");
+            opt.value = s;
+            opt.textContent = s;
+            if (s === order.status) opt.selected = true;
+            select.appendChild(opt);
+          });
+          select.addEventListener("change", function () {
+            fetch("/api/admin/order-update", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ id: order.id, status: select.value }),
+            })
+              .then(function (r) {
+                return r.json();
+              })
+              .then(function (result) {
+                if (result && result.ok) {
+                  showBanner("Order #" + order.id + " marked " + select.value + ".", "success");
+                } else {
+                  showBanner((result && result.error) || "Update failed", "error");
+                }
+              });
+          });
+
+          card.innerHTML =
+            '<div class="order-card-head">' +
+            '<span class="order-id">Order #' + order.id + " — " + who + "</span>" +
+            "</div>" +
+            '<div class="order-date">' + new Date(order.created_at).toLocaleString() + "</div>" +
+            '<div class="order-items-line" style="margin-top:10px;">' + itemsLine + "</div>" +
+            '<div class="row" style="justify-content:space-between;margin-top:14px;">' +
+            '<div class="order-total" style="margin:0;">' + formatUsd(order.total_cents) + "</div>" +
+            "</div>";
+          card.querySelector(".row").appendChild(select);
+          adminOrdersList.appendChild(card);
+        });
+      })
+      .catch(function () {
+        ordersLoadingAdmin.hidden = true;
+        showBanner("Network error loading orders", "error");
+      });
+  }
+
   function showLogin() {
     loginView.hidden = false;
     dashboardView.hidden = true;

@@ -1,13 +1,15 @@
 # Goat Hub 🐐
 
 A responsive, multi-page marketing website for **Goat Hub**, a pasture-raised
-goat farm offering dairy products, breeding stock, meat goats, mohair fiber,
-farm tours, and herd health consulting — plus a password-protected admin
-panel for replacing any image on the site without touching code.
+goat farm — plus a real farm store (cart + Stripe checkout), customer
+accounts with order history, and a password-protected admin panel for
+images, inventory and orders.
 
-The site itself is static (no build step, no framework); the admin panel
-adds a handful of small [Vercel Serverless Functions](https://vercel.com/docs/functions)
-and [Vercel Blob](https://vercel.com/docs/storage/vercel-blob) storage.
+The marketing pages are static; everything else is a handful of small
+[Vercel Serverless Functions](https://vercel.com/docs/functions) backed by
+[Vercel Blob](https://vercel.com/docs/storage/vercel-blob) (images),
+[Neon/Vercel Postgres](https://vercel.com/docs/storage) (products, accounts,
+orders), and [Stripe](https://stripe.com) (payment).
 
 ## Pages
 
@@ -19,61 +21,94 @@ and [Vercel Blob](https://vercel.com/docs/storage/vercel-blob) storage.
 | Gallery | `gallery.html` |
 | Journal (Blog) | `blog.html` |
 | Contact | `contact.html` |
-| **Image Admin** | `admin.html` |
+| **Farm Store** | `store.html` |
+| **My Account** (login/signup/orders) | `account.html` |
+| **Admin** (images, inventory, orders) | `admin.html` |
 
 ## Structure
 
 ```
-├── index.html / about.html / services.html / gallery.html / blog.html / contact.html
-├── admin.html             # password-protected image manager
-├── css/style.css          # shared stylesheet (design tokens, components, responsive rules)
-├── css/admin.css          # admin panel styles
-├── js/main.js             # sticky header, mobile nav, scroll-reveal, counters,
-│                          #   testimonial slider, FAQ accordion, gallery filter, demo forms
-├── js/image-manifest.js   # applies any admin-replaced images on every page load
-├── js/admin.js            # admin panel client logic
-├── assets/svg/, assets/img/  # bundled default illustrations, logo, icons, favicon
-└── api/                   # serverless functions backing the admin panel
-    ├── login.js, logout.js, check-auth.js
-    ├── _lib/auth.js       # signed-cookie session helpers (not a route — "_" prefix)
-    ├── _lib/imageKeys.js  # whitelist of images the admin panel may replace
-    └── images/manifest.js, upload.js, reset.js
+├── index.html … contact.html    # marketing pages
+├── store.html, account.html     # store + customer accounts
+├── admin.html                   # password-protected admin (Images / Inventory / Orders tabs)
+├── css/                         # style.css (shared), admin.css, store.css, account.css
+├── js/
+│   ├── main.js                  # sticky header, mobile nav, scroll-reveal, counters, etc.
+│   ├── cart.js                  # shared localStorage cart + header badge (loaded on every page)
+│   ├── image-manifest.js        # applies admin-replaced images on every page load
+│   ├── store.js, account.js, admin.js
+├── assets/svg/, assets/img/     # bundled default illustrations, logo, icons, favicon
+└── api/
+    ├── login.js, logout.js, check-auth.js      # admin auth (shared password)
+    ├── auth/signup.js, login.js, logout.js, me.js   # customer auth
+    ├── products.js                              # public product list
+    ├── orders/checkout.js, mine.js, confirm.js  # customer checkout + order history
+    ├── stripe/webhook.js                        # marks orders paid, decrements stock
+    ├── admin/products.js, product-update.js, product-delete.js
+    ├── admin/orders.js, order-update.js
+    ├── images/manifest.js, upload.js, reset.js
+    └── _lib/                                    # shared helpers (auth.js, userAuth.js, db.js,
+                                                  #   stripeClient.js, imageKeys.js, slugify.js)
+                                                  #   "_"-prefixed, not routes
 ```
 
-All bundled illustrations are original inline/embedded SVGs — no third-party
-image dependencies, so the base site has no external asset requests besides
-Google Fonts.
+## How it fits together
 
-## How the image admin panel works
+- **Images**: every replaceable `<img>` carries its bundled default `src`
+  plus `data-image-key="…"`. `js/image-manifest.js` fetches a public
+  manifest and swaps in any admin-replaced image; if that fetch fails for
+  any reason, the bundled default just keeps showing.
+- **Store & cart**: `store.html` fetches `/api/products` and renders a
+  grid; the cart itself lives in `localStorage` (`js/cart.js`, shared by
+  every page) and only ever stores `{productId, quantity}` — prices are
+  always re-read from the server at checkout, never trusted from the
+  client.
+- **Accounts**: `account.html` handles login/signup (bcrypt-hashed
+  passwords) and shows order history. Sessions are a signed, HttpOnly
+  cookie — separate from the admin's cookie, so the two logins never mix.
+- **Checkout**: clicking Checkout requires being logged in; the server
+  re-validates prices/stock, creates a Stripe Checkout Session, and
+  records a `pending` order. Stripe's webhook then marks it `paid` and
+  decrements stock once payment actually completes.
+- **Admin**: one shared password unlocks all three tabs — Images,
+  Inventory (add/edit/deactivate products), and Orders (mark
+  fulfilled/cancelled).
 
-Every replaceable `<img>` in the HTML carries its bundled default `src` **and**
-a `data-image-key="…"` attribute. On every page load, `js/image-manifest.js`
-fetches `/api/images/manifest` (a public, read-only endpoint) and swaps in a
-replacement URL for any key that's been customized — otherwise the bundled
-default keeps showing. If the fetch fails for any reason (offline, JS
-disabled, Blob not set up yet), the page already has a working default
-`src`, so nothing breaks.
+## One-time setup (required — none of this can be done from code)
 
-The admin panel (`admin.html`) lets you log in with one shared password and
-upload a replacement for any of the ~20 known image slots (logo, favicon,
-hero image, gallery photos, journal thumbnails, team portraits, the map,
-etc.). Uploads go to Vercel Blob storage and go live for every visitor
-immediately — no redeploy needed. "Reset to Default" removes a replacement.
+Everything below is a step in the **Vercel dashboard** (or Stripe's) for
+this project. The site itself is unaffected by whichever pieces aren't set
+up yet — the relevant feature just shows a clear "not set up yet" message
+instead of erroring.
 
-### One-time setup (required before the admin panel will work)
+1. **Blob storage** (for the image admin) — Project → Storage → Create
+   Database → **Blob**. Adds `BLOB_READ_WRITE_TOKEN` automatically.
+2. **Postgres database** (for products/accounts/orders) — Project →
+   Storage → Create Database → **Postgres**. Adds `DATABASE_URL` (and
+   friends) automatically. Tables are created automatically on first use —
+   no migration step needed.
+3. **Admin password** — Settings → Environment Variables → add
+   `ADMIN_PASSWORD` (whatever you want to log in to `/admin.html` with).
+4. **Customer session secret** — Settings → Environment Variables → add
+   `SESSION_SECRET`. Any long random string works; here's one already
+   generated for you to paste in:
+   ```
+   391d201c0cd7b1d340c9b292d2b83228b816f2b1db9622a3c7aa77e8de4893c
+   ```
+5. **Stripe secret key** — create a [Stripe](https://dashboard.stripe.com)
+   account if you don't have one, grab the **Secret key** (start with the
+   test-mode one, `sk_test_…`) from Developers → API keys, and add it as
+   `STRIPE_SECRET_KEY`.
+6. **Stripe webhook** — Stripe Dashboard → Developers → Webhooks → Add
+   endpoint:
+   - Endpoint URL: `https://<your-domain>/api/stripe/webhook`
+   - Event to send: `checkout.session.completed`
+   - Copy the **Signing secret** (`whsec_…`) it gives you and add it as
+     `STRIPE_WEBHOOK_SECRET`.
 
-Two things need to be configured in the **Vercel dashboard** for the project
-— these can't be done from code:
-
-1. **Create a Blob store** — Project → Storage → Create Database → **Blob**.
-   This automatically adds a `BLOB_READ_WRITE_TOKEN` environment variable;
-   you don't need to copy anything yourself.
-2. **Set the admin password** — Project → Settings → Environment Variables →
-   add `ADMIN_PASSWORD` with whatever password you want to log in with.
-
-Redeploy (or just wait for the next push) after adding these. Until they're
-both set, the main site works exactly as before — the admin panel will just
-show a clear "not set up yet" message instead of a working upload.
+Redeploy after adding these (or just push again — Vercel picks up new env
+vars on the next deploy). Switch `STRIPE_SECRET_KEY`/the webhook to your
+live-mode keys whenever you're ready to accept real payments.
 
 ## Local preview
 
@@ -83,13 +118,16 @@ The marketing pages work with any static file server:
 python3 -m http.server 8000
 ```
 
-Then open `http://localhost:8000/index.html`. The `/api/*` functions won't
-run under a plain static server — use `vercel dev` (after `npm install`) if
-you want to exercise the admin panel locally.
+Then open `http://localhost:8000/index.html`. The `/api/*` functions (and
+therefore the store, accounts and admin panel) won't run under a plain
+static server — use `vercel dev` (after `npm install`) if you want to
+exercise those locally, with the same environment variables set in a
+`.env.local` file.
 
 ## Deployment
 
 Deploys to Vercel with zero configuration — it auto-detects the `api/`
 folder as Node.js Serverless Functions and serves everything else
-statically. `package.json` only exists for the `@vercel/blob` dependency
-those functions use.
+statically. `package.json` only exists for the dependencies those
+functions use (`@vercel/blob`, `@neondatabase/serverless`, `bcryptjs`,
+`stripe`).

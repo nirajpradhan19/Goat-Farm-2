@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Image Admin | Goat Hub</title>
+<title>Admin | Goat Hub</title>
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" type="image/svg+xml" href="assets/svg/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,6 +11,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/admin.css">
+<link rel="stylesheet" href="css/account.css">
 </head>
 <body>
 
@@ -18,7 +19,7 @@
   <div class="container nav-wrap">
     <a href="index.html" class="brand">
       <img src="assets/img/logo-goathub.png" data-image-key="logo" alt="Goat Hub logo" class="logo-badge">
-      <span class="brand-text"><strong>Goat Hub</strong><span>Image Admin</span></span>
+      <span class="brand-text"><strong>Goat Hub</strong><span>Admin</span></span>
     </a>
     <div class="header-cta">
       <a href="index.html" class="btn btn-ghost btn-sm">← Back to site</a>
@@ -34,8 +35,8 @@
     <section id="loginView" class="admin-login">
       <div class="admin-login-card">
         <span class="eyebrow" style="justify-content:center;">Admin Access</span>
-        <h1>Image Manager</h1>
-        <p>Log in to replace any image used on the site. Changes go live for every visitor right away.</p>
+        <h1>Goat Hub Admin</h1>
+        <p>Log in to manage site images, the farm store's inventory, and customer orders.</p>
         <form id="loginForm">
           <div class="form-field">
             <label for="password">Admin Password</label>
@@ -49,15 +50,103 @@
 
     <!-- ===== DASHBOARD VIEW ===== -->
     <section id="dashboardView" hidden>
-      <div class="section-head">
-        <span class="eyebrow">Image Manager</span>
-        <h1 style="font-size:1.9rem;">Replace Any Image On The Site</h1>
-        <p>Upload a new file for any image below — it replaces the current one everywhere it's used, immediately, for every visitor. SVG, PNG, JPEG, WebP or GIF, up to 3MB. Use "Reset to Default" to undo a replacement.</p>
+
+      <div class="admin-tabs">
+        <button type="button" class="admin-tab active" data-tab="images">Images</button>
+        <button type="button" class="admin-tab" data-tab="inventory">Inventory</button>
+        <button type="button" class="admin-tab" data-tab="orders">Orders</button>
       </div>
 
       <div id="statusBanner" class="admin-banner" hidden></div>
 
-      <div id="imageGrid" class="admin-grid"></div>
+      <!-- ---- Images tab ---- -->
+      <section id="tab-images" class="admin-tab-panel">
+        <div class="section-head">
+          <span class="eyebrow">Image Manager</span>
+          <h1 style="font-size:1.7rem;">Replace Any Image On The Site</h1>
+          <p>Upload a new file for any image below — it replaces the current one everywhere it's used, immediately, for every visitor. SVG, PNG, JPEG, WebP or GIF, up to 3MB. Use "Reset to Default" to undo a replacement.</p>
+        </div>
+        <div id="imageGrid" class="admin-grid"></div>
+      </section>
+
+      <!-- ---- Inventory tab ---- -->
+      <section id="tab-inventory" class="admin-tab-panel" hidden>
+        <div class="section-head" style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:16px;">
+          <div>
+            <span class="eyebrow">Inventory</span>
+            <h1 style="font-size:1.7rem;">Store Products</h1>
+            <p>Products marked inactive are hidden from the store but keep their order history.</p>
+          </div>
+          <button type="button" id="newProductBtn" class="btn btn-forest btn-sm">+ Add Product</button>
+        </div>
+
+        <!-- product editor (create/edit) -->
+        <div id="productEditor" class="admin-editor-card" hidden>
+          <h3 id="productEditorTitle">New Product</h3>
+          <input type="hidden" id="productId">
+          <div class="form-grid">
+            <div class="form-field">
+              <label for="productName">Name</label>
+              <input type="text" id="productName" placeholder="Raw Goat Milk (Half Gallon)">
+            </div>
+            <div class="form-field">
+              <label for="productCategory">Category</label>
+              <input type="text" id="productCategory" placeholder="Dairy">
+            </div>
+            <div class="form-field">
+              <label for="productPrice">Price (USD)</label>
+              <input type="number" id="productPrice" min="0" step="0.01" placeholder="8.50">
+            </div>
+            <div class="form-field">
+              <label for="productStock">Stock</label>
+              <input type="number" id="productStock" min="0" step="1" placeholder="20">
+            </div>
+            <div class="form-field full">
+              <label for="productDescription">Description</label>
+              <textarea id="productDescription" rows="3" placeholder="Fresh, pasteurized goat milk from our own herd."></textarea>
+            </div>
+            <div class="form-field full">
+              <label for="productImageUrl">Image URL (optional — leave blank to use a default icon)</label>
+              <input type="text" id="productImageUrl" placeholder="https://... or assets/svg/...">
+            </div>
+            <div class="form-field">
+              <label for="productActive">Status</label>
+              <select id="productActive">
+                <option value="true">Active (visible in store)</option>
+                <option value="false">Inactive (hidden)</option>
+              </select>
+            </div>
+          </div>
+          <div class="row" style="margin-top:16px;gap:10px;">
+            <button type="button" id="saveProductBtn" class="btn btn-forest btn-sm">Save Product</button>
+            <button type="button" id="cancelProductBtn" class="btn btn-ghost btn-sm">Cancel</button>
+          </div>
+          <p id="productError" class="admin-error" hidden></p>
+        </div>
+
+        <div id="productsLoading"><p>Loading products…</p></div>
+        <div id="productTableWrap" class="admin-table-wrap" hidden>
+          <table class="admin-table">
+            <thead>
+              <tr><th>Product</th><th>Category</th><th>Price</th><th>Stock</th><th>Status</th><th></th></tr>
+            </thead>
+            <tbody id="productTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ---- Orders tab ---- -->
+      <section id="tab-orders" class="admin-tab-panel" hidden>
+        <div class="section-head">
+          <span class="eyebrow">Orders</span>
+          <h1 style="font-size:1.7rem;">Customer Orders</h1>
+          <p>Update an order's status as you fulfill it. "Paid" is set automatically once Stripe confirms payment.</p>
+        </div>
+        <div id="ordersLoadingAdmin"><p>Loading orders…</p></div>
+        <div id="ordersEmptyAdmin" hidden><p>No orders yet.</p></div>
+        <div id="adminOrdersList" class="orders-list"></div>
+      </section>
+
     </section>
 
   </div>
