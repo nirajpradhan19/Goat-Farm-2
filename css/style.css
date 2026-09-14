@@ -166,8 +166,8 @@ section{ position: relative; }
 .brand-text{ display:flex; flex-direction:column; line-height:1.1; }
 .brand-text strong{ font-family: var(--font-display); font-size:1.28rem; color: var(--forest-dark); }
 .brand-text span{ font-size:.68rem; letter-spacing:.16em; text-transform:uppercase; color: var(--terracotta); font-weight:700; }
-.logo-badge{ width:66px; height:66px; flex-shrink:0; display:block; filter: drop-shadow(0 2px 6px rgba(28,46,38,.18)); }
-.footer-brand .logo-badge{ width:90px; height:90px; margin-bottom:16px; }
+.logo-badge{ height:58px; width:auto; flex-shrink:0; display:block; filter: drop-shadow(0 2px 6px rgba(28,46,38,.18)); }
+.footer-brand .logo-badge{ height:80px; width:auto; margin-bottom:16px; }
 
 .main-nav{ display:flex; align-items:center; gap:38px; }
 .main-nav a{
