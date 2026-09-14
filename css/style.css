@@ -30,6 +30,10 @@
 }
 
 *,*::before,*::after{ box-sizing: border-box; }
+/* Guard the native `hidden` attribute against being overridden by an
+   author display rule on the same element (e.g. a `.btn` class setting
+   display:inline-flex) — [hidden] must always win. */
+[hidden]{ display:none !important; }
 html{ scroll-behavior: smooth; }
 body{
   margin:0;

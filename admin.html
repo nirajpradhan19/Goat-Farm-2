@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Image Admin | Goat Hub</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/svg+xml" href="assets/svg/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+<header class="site-header" style="position:static;">
+  <div class="container nav-wrap">
+    <a href="index.html" class="brand">
+      <img src="assets/img/logo-goathub.png" data-image-key="logo" alt="Goat Hub logo" class="logo-badge">
+      <span class="brand-text"><strong>Goat Hub</strong><span>Image Admin</span></span>
+    </a>
+    <div class="header-cta">
+      <a href="index.html" class="btn btn-ghost btn-sm">← Back to site</a>
+      <button id="logoutBtn" class="btn btn-forest btn-sm" hidden>Log Out</button>
+    </div>
+  </div>
+</header>
+
+<main class="admin-main">
+  <div class="container">
+
+    <!-- ===== LOGIN VIEW ===== -->
+    <section id="loginView" class="admin-login">
+      <div class="admin-login-card">
+        <span class="eyebrow" style="justify-content:center;">Admin Access</span>
+        <h1>Image Manager</h1>
+        <p>Log in to replace any image used on the site. Changes go live for every visitor right away.</p>
+        <form id="loginForm">
+          <div class="form-field">
+            <label for="password">Admin Password</label>
+            <input type="password" id="password" name="password" autocomplete="current-password" required autofocus>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%;margin-top:8px;">Log In</button>
+          <p id="loginError" class="admin-error" hidden></p>
+        </form>
+      </div>
+    </section>
+
+    <!-- ===== DASHBOARD VIEW ===== -->
+    <section id="dashboardView" hidden>
+      <div class="section-head">
+        <span class="eyebrow">Image Manager</span>
+        <h1 style="font-size:1.9rem;">Replace Any Image On The Site</h1>
+        <p>Upload a new file for any image below — it replaces the current one everywhere it's used, immediately, for every visitor. SVG, PNG, JPEG, WebP or GIF, up to 3MB. Use "Reset to Default" to undo a replacement.</p>
+      </div>
+
+      <div id="statusBanner" class="admin-banner" hidden></div>
+
+      <div id="imageGrid" class="admin-grid"></div>
+    </section>
+
+  </div>
+</main>
+
+<script src="js/admin.js"></script>
+</body>
+</html>
