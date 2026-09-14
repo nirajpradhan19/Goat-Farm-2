@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 300" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="b3" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#8fbf9f"/><stop offset="1" stop-color="#2e4a3d"/>
+    </linearGradient>
+  </defs>
+  <rect width="480" height="300" fill="url(#b3)"/>
+  <circle cx="400" cy="60" r="30" fill="#f4d99b" opacity="0.85"/>
+  <!-- barn + solar-ish leaf motif -->
+  <g transform="translate(70,120)">
+    <rect x="0" y="40" width="110" height="80" fill="#c1673b"/>
+    <polygon points="0,40 55,0 110,40" fill="#a8532d"/>
+    <rect x="42" y="70" width="26" height="50" fill="#f4ede0"/>
+  </g>
+  <!-- leaf -->
+  <g transform="translate(260,90)">
+    <path d="M0 120 C 10 40 80 0 150 10 C 120 60 90 110 0 120 Z" fill="#e0a83e"/>
+    <path d="M6 116 C 40 70 90 40 144 16" stroke="#a8532d" stroke-width="4" fill="none" stroke-linecap="round"/>
+  </g>
+  <g transform="translate(150,190) scale(0.65)" fill="#1c2e26">
+    <ellipse cx="60" cy="70" rx="46" ry="28"/>
+    <rect x="18" y="90" width="12" height="34" rx="5"/>
+    <rect x="100" y="90" width="12" height="34" rx="5"/>
+    <circle cx="108" cy="44" r="22"/>
+  </g>
+</svg>

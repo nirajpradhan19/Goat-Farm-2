@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 520" fill="none">
+  <defs>
+    <pattern id="ropeTexture" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="12" height="12" fill="#4b4a47"/>
+      <rect width="6" height="12" fill="#6e6d69"/>
+    </pattern>
+  </defs>
+
+  <!-- opaque backing so the badge reads on any background color -->
+  <circle cx="260" cy="260" r="248" fill="#ffffff"/>
+
+  <!-- rope circle border -->
+  <circle cx="260" cy="260" r="232" fill="none" stroke="url(#ropeTexture)" stroke-width="24"/>
+  <circle cx="260" cy="260" r="232" fill="none" stroke="#3a3936" stroke-width="24" stroke-opacity="0.12"/>
+
+  <!-- leaping goat silhouette -->
+  <g fill="#78846a">
+    <!-- tail -->
+    <ellipse cx="128" cy="198" rx="10" ry="16" transform="rotate(35 128 198)"/>
+    <!-- back legs, trailing -->
+    <path d="M168 222 L190 222 L163 302 L141 302 Z"/>
+    <path d="M194 228 L216 228 L192 306 L170 306 Z"/>
+    <!-- body -->
+    <ellipse cx="255" cy="205" rx="96" ry="40" transform="rotate(-16 255 205)"/>
+    <!-- front legs, tucked -->
+    <path d="M248 233 L267 233 L250 292 L231 292 Z"/>
+    <path d="M274 238 L293 238 L279 296 L260 296 Z"/>
+    <!-- neck + head -->
+    <ellipse cx="345" cy="150" rx="52" ry="36" transform="rotate(-32 345 150)"/>
+    <!-- snout -->
+    <ellipse cx="392" cy="150" rx="22" ry="15" transform="rotate(-12 392 150)"/>
+    <!-- ear -->
+    <path d="M304 128 L282 108 L300 152 Z"/>
+    <!-- horn -->
+    <path d="M338 118 Q 314 62 352 16 Q 340 70 352 112 Z"/>
+  </g>
+
+  <!-- wordmark -->
+  <text x="260" y="378" text-anchor="middle" font-family="'Fraunces', Georgia, serif" font-weight="700" font-size="74" fill="#3a3936">Goat Hub</text>
+</svg>

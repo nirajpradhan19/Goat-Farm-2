@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 300" preserveAspectRatio="xMidYMid slice">
+  <rect width="480" height="300" fill="#f4d99b"/>
+  <circle cx="240" cy="150" r="120" fill="#faf6ee"/>
+  <!-- cross / medical -->
+  <g fill="#c1673b">
+    <rect x="215" y="70" width="30" height="120" rx="8"/>
+    <rect x="170" y="115" width="120" height="30" rx="8"/>
+  </g>
+  <!-- goat head peeking -->
+  <g transform="translate(50,150)" fill="#3f6350">
+    <circle cx="40" cy="40" r="34" />
+    <path d="M28 12 Q14 -18 32 -30" stroke="#2e4a3d" stroke-width="9" fill="none" stroke-linecap="round"/>
+    <path d="M52 10 Q50 -22 72 -28" stroke="#1c2e26" stroke-width="9" fill="none" stroke-linecap="round"/>
+    <circle cx="52" cy="34" r="4" fill="#fff"/>
+  </g>
+</svg>

@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 360" preserveAspectRatio="xMidYMid slice">
+  <rect width="480" height="360" fill="#f4d99b"/>
+  <rect x="0" y="230" width="480" height="130" fill="#a8532d"/>
+  <rect x="0" y="230" width="480" height="10" fill="#8a4128"/>
+  <!-- cheese wheels -->
+  <g>
+    <ellipse cx="140" cy="220" rx="80" ry="26" fill="#e0a83e"/>
+    <rect x="60" y="170" width="160" height="50" fill="#f0bd5e"/>
+    <ellipse cx="140" cy="170" rx="80" ry="26" fill="#f4d99b"/>
+    <circle cx="110" cy="170" r="5" fill="#d99a2d"/>
+    <circle cx="150" cy="176" r="4" fill="#d99a2d"/>
+    <circle cx="170" cy="166" r="4.5" fill="#d99a2d"/>
+  </g>
+  <g>
+    <ellipse cx="320" cy="240" rx="64" ry="20" fill="#c1673b"/>
+    <rect x="256" y="200" width="128" height="40" fill="#d97a49"/>
+    <ellipse cx="320" cy="200" rx="64" ry="20" fill="#e58a58"/>
+    <circle cx="300" cy="200" r="4" fill="#a8532d"/>
+    <circle cx="335" cy="204" r="3.5" fill="#a8532d"/>
+  </g>
+  <!-- knife -->
+  <g transform="translate(210,255) rotate(-18)">
+    <rect x="0" y="0" width="90" height="10" rx="4" fill="#e7eef2"/>
+    <rect x="-26" y="-3" width="30" height="16" rx="6" fill="#6b4a34"/>
+  </g>
+  <!-- goat mini on left -->
+  <g transform="translate(20,110) scale(0.7)" fill="#3f6350">
+    <ellipse cx="60" cy="70" rx="46" ry="28"/>
+    <rect x="18" y="90" width="12" height="34" rx="5"/>
+    <rect x="100" y="90" width="12" height="34" rx="5"/>
+    <circle cx="108" cy="44" r="22"/>
+    <path d="M120 58 q10 6 6 18 q-12 0 -16 -10 Z"/>
+  </g>
+</svg>

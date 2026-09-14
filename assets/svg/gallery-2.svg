@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 360" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="g2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#e0a83e"/><stop offset="1" stop-color="#c1673b"/>
+    </linearGradient>
+  </defs>
+  <rect width="480" height="360" fill="url(#g2)"/>
+  <rect x="0" y="0" width="480" height="360" fill="#a8532d" opacity="0.15"/>
+  <!-- barn wall interior -->
+  <rect x="0" y="240" width="480" height="120" fill="#5a3d2b" opacity="0.35"/>
+  <g stroke="#3a271b" stroke-width="3" opacity="0.3">
+    <line x1="0" y1="270" x2="480" y2="270"/>
+    <line x1="0" y1="300" x2="480" y2="300"/>
+    <line x1="0" y1="330" x2="480" y2="330"/>
+  </g>
+  <!-- mother goat -->
+  <g transform="translate(150,150)" fill="#f4ede0">
+    <ellipse cx="60" cy="70" rx="50" ry="30"/>
+    <rect x="16" y="94" width="13" height="36" rx="5"/>
+    <rect x="40" y="96" width="13" height="38" rx="5"/>
+    <rect x="82" y="96" width="13" height="38" rx="5"/>
+    <rect x="106" y="94" width="13" height="36" rx="5"/>
+    <circle cx="112" cy="42" r="24"/>
+    <path d="M104 24 Q92 -2 106 -16" stroke="#f4ede0" stroke-width="8" fill="none" stroke-linecap="round"/>
+    <path d="M122 22 Q118 -6 136 -18" stroke="#f4ede0" stroke-width="8" fill="none" stroke-linecap="round"/>
+    <path d="M126 56 q12 6 8 20 q-14 0 -18 -12 Z"/>
+    <path d="M10 62 q-18 8 -10 22 q14 2 20 -10 Z"/>
+    <circle cx="118" cy="38" r="3" fill="#2b2621"/>
+  </g>
+  <!-- kid goat -->
+  <g transform="translate(270,215) scale(0.55)" fill="#faf6ee">
+    <ellipse cx="60" cy="70" rx="50" ry="30"/>
+    <rect x="16" y="94" width="13" height="36" rx="5"/>
+    <rect x="40" y="96" width="13" height="38" rx="5"/>
+    <rect x="82" y="96" width="13" height="38" rx="5"/>
+    <rect x="106" y="94" width="13" height="36" rx="5"/>
+    <circle cx="112" cy="42" r="24"/>
+    <path d="M126 56 q12 6 8 20 q-14 0 -18 -12 Z"/>
+    <path d="M10 62 q-18 8 -10 22 q14 2 20 -10 Z"/>
+    <circle cx="118" cy="38" r="3" fill="#2b2621"/>
+  </g>
+  <!-- straw -->
+  <g stroke="#e0a83e" stroke-width="3" opacity="0.7">
+    <path d="M40 340 l30 -14"/><path d="M60 344 l30 -16"/><path d="M400 336 l28 -12"/><path d="M420 344 l28 -14"/>
+  </g>
+</svg>

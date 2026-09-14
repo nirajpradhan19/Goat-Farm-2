@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice">
+  <rect width="400" height="400" fill="#3f6350"/>
+  <circle cx="200" cy="160" r="200" fill="#f4d99b" opacity="0.25"/>
+  <path d="M55 400 Q 200 275 345 400 Z" fill="#a8532d"/>
+  <rect x="170" y="280" width="60" height="50" fill="#c48a5e"/>
+  <circle cx="200" cy="200" r="88" fill="#c48a5e"/>
+  <!-- short hair + cap -->
+  <path d="M112 200 Q100 110 200 104 Q300 110 288 200 Q272 155 200 152 Q128 155 112 200 Z" fill="#2b2018"/>
+  <path d="M108 165 Q200 110 292 165 L292 150 Q200 96 108 150 Z" fill="#e0a83e"/>
+  <circle cx="112" cy="212" r="14" fill="#c48a5e"/>
+  <circle cx="288" cy="212" r="14" fill="#c48a5e"/>
+  <ellipse cx="170" cy="215" rx="6" ry="8" fill="#231a12"/>
+  <ellipse cx="230" cy="215" rx="6" ry="8" fill="#231a12"/>
+  <path d="M155 196 q15 -9 30 0" stroke="#231a12" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <path d="M215 196 q15 -9 30 0" stroke="#231a12" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <path d="M178 250 q22 15 44 0" stroke="#7a4b2f" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <!-- short beard -->
+  <path d="M162 248 Q200 280 238 248 Q225 260 200 262 Q175 260 162 248 Z" fill="#2b2018" opacity="0.85"/>
+</svg>

@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 420" preserveAspectRatio="xMidYMid slice">
+  <rect width="600" height="420" fill="#e8e0cb"/>
+  <rect width="600" height="420" fill="#f4d99b" opacity="0.25"/>
+  <!-- blocks -->
+  <g fill="#ddd2b0">
+    <rect x="30" y="30" width="120" height="90"/>
+    <rect x="180" y="60" width="90" height="70"/>
+    <rect x="40" y="180" width="100" height="80"/>
+    <rect x="420" y="40" width="140" height="100"/>
+    <rect x="440" y="220" width="120" height="90"/>
+    <rect x="200" y="260" width="130" height="100"/>
+  </g>
+  <!-- green patches (fields) -->
+  <g fill="#bcd4b6">
+    <rect x="300" y="150" width="180" height="130" rx="10"/>
+    <rect x="60" y="300" width="120" height="90" rx="10"/>
+  </g>
+  <!-- roads -->
+  <g stroke="#fff" stroke-width="10">
+    <line x1="0" y1="150" x2="600" y2="150"/>
+    <line x1="0" y1="300" x2="600" y2="300"/>
+    <line x1="160" y1="0" x2="160" y2="420"/>
+    <line x1="380" y1="0" x2="380" y2="420"/>
+  </g>
+  <g stroke="#f4d99b" stroke-width="3" stroke-dasharray="10 8">
+    <line x1="0" y1="150" x2="600" y2="150"/>
+    <line x1="160" y1="0" x2="160" y2="420"/>
+  </g>
+  <!-- river -->
+  <path d="M0 250 Q 120 220 200 260 T 380 250 T 600 270" stroke="#9cc3d6" stroke-width="16" fill="none" stroke-linecap="round" opacity="0.8"/>
+  <!-- pin -->
+  <g transform="translate(300,150)">
+    <circle cx="0" cy="0" r="46" fill="#c1673b" opacity="0.18"/>
+    <path d="M0 -46 C 26 -46 44 -26 44 -2 C 44 30 0 62 0 62 C 0 62 -44 30 -44 -2 C -44 -26 -26 -46 0 -46 Z" fill="#c1673b"/>
+    <circle cx="0" cy="-6" r="16" fill="#faf6ee"/>
+  </g>
+</svg>

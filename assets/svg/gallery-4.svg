@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 360" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="g4" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#7fa9c9"/><stop offset="1" stop-color="#3f6350"/>
+    </linearGradient>
+  </defs>
+  <rect width="480" height="360" fill="url(#g4)"/>
+  <circle cx="90" cy="70" r="26" fill="#fff" opacity="0.7"/>
+  <!-- mountains -->
+  <polygon points="0,220 90,110 160,220" fill="#ffffff" opacity="0.5"/>
+  <polygon points="70,220 170,90 260,220" fill="#e7f0f5" opacity="0.7"/>
+  <polygon points="260,220 340,120 440,220" fill="#ffffff" opacity="0.55"/>
+  <path d="M0 220 Q 140 180 280 220 T 480 210 V360 H0 Z" fill="#2e4a3d"/>
+  <path d="M0 270 Q 160 240 320 270 T 480 260 V360 H0 Z" fill="#1c2e26"/>
+  <!-- rock -->
+  <ellipse cx="250" cy="270" rx="60" ry="22" fill="#5a3d2b" opacity="0.7"/>
+  <!-- goat on rock -->
+  <g transform="translate(190,175)" fill="#e6d8bd">
+    <ellipse cx="60" cy="70" rx="48" ry="28"/>
+    <rect x="18" y="92" width="12" height="30" rx="5"/>
+    <rect x="40" y="94" width="12" height="32" rx="5"/>
+    <rect x="80" y="94" width="12" height="32" rx="5"/>
+    <rect x="102" y="92" width="12" height="30" rx="5"/>
+    <circle cx="110" cy="44" r="22"/>
+    <path d="M102 26 Q90 0 104 -16" stroke="#5a3d2b" stroke-width="7" fill="none" stroke-linecap="round"/>
+    <path d="M120 24 Q116 -4 134 -18" stroke="#3a271b" stroke-width="7" fill="none" stroke-linecap="round"/>
+    <circle cx="116" cy="40" r="3" fill="#2b2621"/>
+    <path d="M124 58 q10 6 6 18 q-12 0 -16 -10 Z"/>
+    <path d="M14 64 q-16 6 -10 20 q12 2 18 -8 Z"/>
+  </g>
+</svg>

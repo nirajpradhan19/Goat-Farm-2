@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice">
+  <rect width="400" height="400" fill="#e0a83e"/>
+  <circle cx="200" cy="160" r="200" fill="#f4d99b" opacity="0.4"/>
+  <!-- shoulders/shirt -->
+  <path d="M60 400 Q 200 280 340 400 Z" fill="#2e4a3d"/>
+  <rect x="170" y="280" width="60" height="50" fill="#e6c48b"/>
+  <!-- head -->
+  <circle cx="200" cy="200" r="88" fill="#e6c48b"/>
+  <!-- hair -->
+  <path d="M112 190 Q100 100 200 92 Q300 100 288 190 Q270 140 200 138 Q130 140 112 190 Z" fill="#4a3223"/>
+  <!-- ears -->
+  <circle cx="112" cy="205" r="14" fill="#e6c48b"/>
+  <circle cx="288" cy="205" r="14" fill="#e6c48b"/>
+  <!-- eyes / brows / mouth -->
+  <ellipse cx="170" cy="210" rx="6" ry="8" fill="#2b2621"/>
+  <ellipse cx="230" cy="210" rx="6" ry="8" fill="#2b2621"/>
+  <path d="M155 190 q15 -10 30 0" stroke="#2b2621" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <path d="M215 190 q15 -10 30 0" stroke="#2b2621" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <path d="M178 245 q22 16 44 0" stroke="#a8532d" stroke-width="5" fill="none" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 660" fill="none">
+  <rect width="520" height="660" rx="24" fill="#faf8f3"/>
+
+  <g>
+    <ellipse cx="100" cy="282" rx="20" ry="24" fill="#efe9da" transform="rotate(-15 100 282)"/>
+    <rect x="120" y="370" width="26" height="130" rx="12" fill="#c9a866"/>
+    <rect x="188" y="372" width="26" height="132" rx="12" fill="#c9a866"/>
+    <rect x="300" y="370" width="26" height="134" rx="12" fill="#b6934f"/>
+    <rect x="356" y="368" width="26" height="132" rx="12" fill="#b6934f"/>
+    <rect x="116" y="488" width="34" height="16" rx="7" fill="#2b2621"/>
+    <rect x="184" y="490" width="34" height="16" rx="7" fill="#2b2621"/>
+    <rect x="296" y="490" width="34" height="16" rx="7" fill="#2b2621"/>
+    <rect x="352" y="488" width="34" height="16" rx="7" fill="#2b2621"/>
+    <ellipse cx="255" cy="330" rx="175" ry="105" fill="#efe9da"/>
+    <path d="M370 290 Q 415 230 400 155 L 330 165 Q 322 240 370 290 Z" fill="#efe9da"/>
+    <g transform="translate(330,60)">
+      <ellipse cx="90" cy="90" rx="86" ry="78" fill="#efe9da"/>
+      <ellipse cx="150" cy="118" rx="34" ry="24" fill="#d8a556"/>
+      <path d="M132 128 Q150 142 168 128" stroke="#2b2621" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <ellipse cx="142" cy="112" rx="3.2" ry="4" fill="#2b2621"/>
+      <ellipse cx="160" cy="112" rx="3.2" ry="4" fill="#2b2621"/>
+      <path d="M14 66 Q -30 50 -20 96 Q 18 100 38 74 Z" fill="#efe9da" stroke="#2b2621" stroke-width="3"/>
+      <path d="M100 12 Q 96 -34 140 -22 Q 146 20 108 34 Z" fill="#efe9da" stroke="#2b2621" stroke-width="3"/>
+      <path d="M56 20 Q 30 -40 66 -78" stroke="#c9a866" stroke-width="20" stroke-linecap="round" fill="none"/>
+      <path d="M104 6 Q 96 -54 140 -86" stroke="#b6934f" stroke-width="20" stroke-linecap="round" fill="none"/>
+      <circle cx="98" cy="82" r="5.5" fill="#1c1a16"/>
+      <circle cx="126" cy="84" r="5.5" fill="#1c1a16"/>
+    </g>
+    <g fill="#d8c89e" opacity="0.55">
+      <ellipse cx="180" cy="290" rx="22" ry="7" transform="rotate(-10 180 290)"/>
+      <ellipse cx="230" cy="360" rx="26" ry="8" transform="rotate(6 230 360)"/>
+      <ellipse cx="300" cy="300" rx="20" ry="6" transform="rotate(-16 300 300)"/>
+      <ellipse cx="130" cy="350" rx="18" ry="6" transform="rotate(12 130 350)"/>
+      <ellipse cx="340" cy="355" rx="16" ry="6" transform="rotate(-8 340 355)"/>
+    </g>
+  </g>
+
+  <text x="260" y="605" text-anchor="middle" font-family="Verdana, Arial, sans-serif" font-weight="700" font-size="52" letter-spacing="1" fill="#1c1a16">GOAT</text>
+</svg>

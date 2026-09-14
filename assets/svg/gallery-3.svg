@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 360" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="g3" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f4d99b"/><stop offset="1" stop-color="#e0a83e"/>
+    </linearGradient>
+  </defs>
+  <rect width="480" height="360" fill="url(#g3)"/>
+  <rect x="0" y="250" width="480" height="110" fill="#3f6350" opacity="0.25"/>
+  <!-- goat standing for milking -->
+  <g transform="translate(90,140)" fill="#f4ede0">
+    <ellipse cx="70" cy="80" rx="60" ry="34"/>
+    <rect x="20" y="108" width="14" height="42" rx="6" fill="#6b4a34"/>
+    <rect x="48" y="110" width="14" height="44" rx="6" fill="#6b4a34"/>
+    <rect x="96" y="110" width="14" height="44" rx="6" fill="#5a3d2b"/>
+    <rect x="124" y="108" width="14" height="42" rx="6" fill="#5a3d2b"/>
+    <ellipse cx="80" cy="128" rx="20" ry="14" fill="#e6d8bd"/>
+    <circle cx="130" cy="48" r="26" fill="#c1673b"/>
+    <path d="M120 30 Q108 2 124 -14" stroke="#5a3d2b" stroke-width="8" fill="none" stroke-linecap="round"/>
+    <path d="M142 28 Q138 -2 158 -16" stroke="#3a271b" stroke-width="8" fill="none" stroke-linecap="round"/>
+    <circle cx="138" cy="44" r="3.5" fill="#2b2621"/>
+  </g>
+  <!-- milk pail -->
+  <g transform="translate(230,240)">
+    <path d="M0 20 L54 20 L46 78 Q 27 88 8 78 Z" fill="#f4f6f8" stroke="#c9d3da" stroke-width="2"/>
+    <ellipse cx="27" cy="20" rx="27" ry="8" fill="#e7eef2" stroke="#c9d3da" stroke-width="2"/>
+    <ellipse cx="27" cy="20" rx="20" ry="5" fill="#dfe9ee"/>
+    <path d="M2 6 Q27 -14 52 6" stroke="#6b4a34" stroke-width="4" fill="none"/>
+  </g>
+  <!-- milk drops -->
+  <g fill="#ffffff" opacity="0.9">
+    <path d="M300 200 q8 12 0 20 q-8 -8 0 -20 Z"/>
+    <path d="M325 190 q7 10 0 18 q-7 -8 0 -18 Z"/>
+  </g>
+  <!-- sun -->
+  <circle cx="420" cy="60" r="30" fill="#ffffff" opacity="0.55"/>
+</svg>

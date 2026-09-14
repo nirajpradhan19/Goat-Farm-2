@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice">
+  <rect width="400" height="400" fill="#c1673b"/>
+  <circle cx="200" cy="160" r="200" fill="#f4d99b" opacity="0.3"/>
+  <path d="M55 400 Q 200 270 345 400 Z" fill="#1c2e26"/>
+  <rect x="170" y="280" width="60" height="50" fill="#7a4b32"/>
+  <circle cx="200" cy="200" r="88" fill="#7a4b32"/>
+  <!-- hair bun style -->
+  <path d="M115 175 Q105 95 200 90 Q295 95 285 175 Q268 130 200 128 Q132 130 115 175 Z" fill="#241812"/>
+  <circle cx="200" cy="82" r="22" fill="#241812"/>
+  <circle cx="112" cy="205" r="14" fill="#7a4b32"/>
+  <circle cx="288" cy="205" r="14" fill="#7a4b32"/>
+  <ellipse cx="170" cy="212" rx="6" ry="8" fill="#231a12"/>
+  <ellipse cx="230" cy="212" rx="6" ry="8" fill="#231a12"/>
+  <path d="M155 192 q15 -9 30 0" stroke="#231a12" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <path d="M215 192 q15 -9 30 0" stroke="#231a12" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <path d="M176 248 q24 18 48 0" stroke="#5a2f1c" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <!-- earrings -->
+  <circle cx="112" cy="222" r="4" fill="#e0a83e"/>
+  <circle cx="288" cy="222" r="4" fill="#e0a83e"/>
+</svg>

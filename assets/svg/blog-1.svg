@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 300" preserveAspectRatio="xMidYMid slice">
+  <rect width="480" height="300" fill="#e0a83e"/>
+  <rect y="190" width="480" height="110" fill="#3f6350"/>
+  <!-- feed bowl -->
+  <ellipse cx="230" cy="220" rx="110" ry="26" fill="#5a3d2b"/>
+  <ellipse cx="230" cy="208" rx="100" ry="24" fill="#e6d8bd"/>
+  <g fill="#c1673b" opacity="0.9">
+    <circle cx="180" cy="204" r="8"/><circle cx="205" cy="198" r="7"/><circle cx="235" cy="204" r="8"/>
+    <circle cx="262" cy="197" r="6.5"/><circle cx="285" cy="205" r="7.5"/><circle cx="210" cy="212" r="6"/>
+  </g>
+  <!-- goat eating -->
+  <g transform="translate(70,90)" fill="#f4ede0">
+    <ellipse cx="60" cy="70" rx="50" ry="30"/>
+    <rect x="18" y="94" width="13" height="34" rx="5" fill="#6b4a34"/>
+    <rect x="100" y="94" width="13" height="34" rx="5" fill="#5a3d2b"/>
+    <circle cx="110" cy="60" r="22" fill="#c1673b"/>
+    <path d="M104 44 Q94 20 106 6" stroke="#5a3d2b" stroke-width="7" fill="none" stroke-linecap="round"/>
+    <path d="M120 42 Q116 16 134 4" stroke="#3a271b" stroke-width="7" fill="none" stroke-linecap="round"/>
+  </g>
+  <circle cx="410" cy="60" r="34" fill="#faf6ee" opacity="0.5"/>
+</svg>

@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 720" fill="none">
+  <defs>
+    <linearGradient id="askyA" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#e0a83e"/>
+      <stop offset="1" stop-color="#f4d99b"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="720" fill="url(#askyA)"/>
+  <circle cx="500" cy="120" r="70" fill="#faf6ee" opacity="0.5"/>
+
+  <path d="M0 360 Q 160 300 320 350 T 640 330 V 720 H0 Z" fill="#3f6350"/>
+  <path d="M0 430 Q 200 380 400 430 T 640 410 V 720 H0 Z" fill="#2e4a3d"/>
+  <path d="M0 520 Q 220 470 420 515 T 640 500 V 720 H0 Z" fill="#1c2e26"/>
+
+  <!-- barn -->
+  <g transform="translate(60,300)">
+    <rect x="0" y="60" width="180" height="130" fill="#c1673b"/>
+    <polygon points="0,60 90,-10 180,60" fill="#a8532d"/>
+    <rect x="70" y="118" width="40" height="72" fill="#f4ede0"/>
+    <rect x="20" y="90" width="34" height="34" fill="#f4ede0"/>
+    <rect x="126" y="90" width="34" height="34" fill="#f4ede0"/>
+    <line x1="37" y1="90" x2="37" y2="124" stroke="#a8532d" stroke-width="3"/>
+    <line x1="20" y1="107" x2="54" y2="107" stroke="#a8532d" stroke-width="3"/>
+    <line x1="143" y1="90" x2="143" y2="124" stroke="#a8532d" stroke-width="3"/>
+    <line x1="126" y1="107" x2="160" y2="107" stroke="#a8532d" stroke-width="3"/>
+  </g>
+
+  <!-- fence -->
+  <g stroke="#6b4a34" stroke-width="8" stroke-linecap="round">
+    <line x1="40" y1="560" x2="40" y2="630"/>
+    <line x1="100" y1="560" x2="100" y2="630"/>
+    <line x1="160" y1="560" x2="160" y2="630"/>
+    <line x1="34" y1="580" x2="166" y2="580"/>
+    <line x1="34" y1="608" x2="166" y2="608"/>
+  </g>
+
+  <!-- goat 1 (adult, big) -->
+  <g transform="translate(300,470)">
+    <ellipse cx="150" cy="235" rx="130" ry="24" fill="#1c2e26" opacity="0.2"/>
+    <rect x="60" y="150" width="20" height="86" rx="9" fill="#6b4a34"/>
+    <rect x="200" y="150" width="20" height="86" rx="9" fill="#6b4a34"/>
+    <rect x="98" y="150" width="20" height="92" rx="9" fill="#5a3d2b"/>
+    <rect x="245" y="150" width="20" height="92" rx="9" fill="#5a3d2b"/>
+    <ellipse cx="160" cy="130" rx="128" ry="74" fill="#f4ede0"/>
+    <ellipse cx="95" cy="150" rx="48" ry="36" fill="#e6d8bd"/>
+    <path d="M248 92 Q 288 48 274 -8 L 222 4 Q 220 62 248 92 Z" fill="#c1673b"/>
+    <g transform="translate(248,-40)">
+      <ellipse cx="42" cy="58" rx="48" ry="42" fill="#c1673b"/>
+      <ellipse cx="82" cy="76" rx="25" ry="19" fill="#e0a83e"/>
+      <ellipse cx="90" cy="74" rx="3" ry="4" fill="#2b2621"/>
+      <ellipse cx="90" cy="84" rx="3" ry="4" fill="#2b2621"/>
+      <path d="M74 96 q10 24 -4 32 q-15 -6 -11 -28 Z" fill="#e6d8bd"/>
+      <path d="M4 36 Q -28 28 -24 58 Q 4 62 18 44 Z" fill="#a8532d"/>
+      <path d="M64 8 Q 62 -26 92 -20 Q 94 12 72 22 Z" fill="#a8532d"/>
+      <path d="M22 8 Q 6 -38 30 -62" stroke="#5a3d2b" stroke-width="10" stroke-linecap="round" fill="none"/>
+      <path d="M48 2 Q 44 -44 68 -66" stroke="#3a271b" stroke-width="10" stroke-linecap="round" fill="none"/>
+      <ellipse cx="48" cy="48" rx="6" ry="9" fill="#2b2621"/>
+      <ellipse cx="50" cy="45" rx="2" ry="2.4" fill="#fff"/>
+    </g>
+  </g>
+
+  <!-- goat 2 (kid, small) -->
+  <g transform="translate(150,560) scale(0.62)">
+    <rect x="60" y="150" width="20" height="86" rx="9" fill="#a8532d"/>
+    <rect x="200" y="150" width="20" height="86" rx="9" fill="#a8532d"/>
+    <rect x="98" y="150" width="20" height="92" rx="9" fill="#8a4128"/>
+    <rect x="245" y="150" width="20" height="92" rx="9" fill="#8a4128"/>
+    <ellipse cx="160" cy="130" rx="128" ry="74" fill="#e6d8bd"/>
+    <path d="M248 92 Q 288 48 274 -8 L 222 4 Q 220 62 248 92 Z" fill="#e0a83e"/>
+    <g transform="translate(248,-40)">
+      <ellipse cx="42" cy="58" rx="48" ry="42" fill="#e0a83e"/>
+      <ellipse cx="82" cy="76" rx="25" ry="19" fill="#f4d99b"/>
+      <ellipse cx="90" cy="74" rx="3" ry="4" fill="#2b2621"/>
+      <ellipse cx="90" cy="84" rx="3" ry="4" fill="#2b2621"/>
+      <path d="M4 36 Q -28 28 -24 58 Q 4 62 18 44 Z" fill="#c1673b"/>
+      <path d="M64 8 Q 62 -26 92 -20 Q 94 12 72 22 Z" fill="#c1673b"/>
+      <ellipse cx="48" cy="48" rx="6" ry="9" fill="#2b2621"/>
+      <ellipse cx="50" cy="45" rx="2" ry="2.4" fill="#fff"/>
+    </g>
+  </g>
+
+  <!-- grass tufts -->
+  <g stroke="#f4d99b" stroke-width="5" stroke-linecap="round" opacity="0.5">
+    <path d="M480 690 q6 -22 0 -30"/>
+    <path d="M492 690 q0 -26 8 -32"/>
+    <path d="M504 690 q-4 -18 4 -26"/>
+  </g>
+</svg>

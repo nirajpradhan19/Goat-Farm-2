@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -16 440 366" fill="none">
+  <!-- opaque backing so the badge reads on any background color -->
+  <rect x="4" y="-16" width="432" height="366" rx="36" fill="#ffffff"/>
+
+  <!-- ears -->
+  <ellipse cx="97" cy="120" rx="24" ry="38" fill="#d9a98f" stroke="#4a2f1f" stroke-width="6" transform="rotate(-18 97 120)"/>
+  <ellipse cx="343" cy="120" rx="24" ry="38" fill="#d9a98f" stroke="#4a2f1f" stroke-width="6" transform="rotate(18 343 120)"/>
+
+  <!-- horns -->
+  <path d="M162 78 C 118 60 78 26 88 -8 C 106 10 142 22 164 46 C 178 60 180 70 162 78 Z" fill="#b98a54" stroke="#4a2f1f" stroke-width="6" stroke-linejoin="round"/>
+  <path d="M278 78 C 322 60 362 26 352 -8 C 334 10 298 22 276 46 C 262 60 260 70 278 78 Z" fill="#b98a54" stroke="#4a2f1f" stroke-width="6" stroke-linejoin="round"/>
+
+  <!-- face -->
+  <path d="M220 66 C 172 60 132 84 122 132 C 114 172 132 206 152 226 C 168 242 196 252 220 252 C 244 252 272 242 288 226 C 308 206 326 172 318 132 C 308 84 268 60 220 66 Z"
+        fill="#f2ead9" stroke="#4a2f1f" stroke-width="7" stroke-linejoin="round"/>
+
+  <!-- eyes -->
+  <circle cx="186" cy="152" r="17" fill="#3a2415"/>
+  <circle cx="254" cy="152" r="17" fill="#3a2415"/>
+  <circle cx="191" cy="146" r="4.5" fill="#faf6ee"/>
+  <circle cx="259" cy="146" r="4.5" fill="#faf6ee"/>
+
+  <!-- brow crease -->
+  <path d="M220 128 L220 176" stroke="#e0d3b6" stroke-width="6" stroke-linecap="round"/>
+
+  <!-- snout -->
+  <ellipse cx="220" cy="208" rx="40" ry="27" fill="#e7c9a8" stroke="#4a2f1f" stroke-width="5"/>
+  <circle cx="209" cy="202" r="3.4" fill="#4a2f1f"/>
+  <circle cx="231" cy="202" r="3.4" fill="#4a2f1f"/>
+  <path d="M203 220 Q220 232 237 220" stroke="#4a2f1f" stroke-width="5" fill="none" stroke-linecap="round"/>
+
+  <!-- chin shade -->
+  <ellipse cx="220" cy="236" rx="30" ry="14" fill="#e7dcc3" opacity="0.7"/>
+
+  <!-- stars -->
+  <g fill="#e0b84a">
+    <path d="M60 300 l6 13 14 1.5 -10.5 9.5 3 14 -12.5 -7.5 -12.5 7.5 3 -14 -10.5 -9.5 14 -1.5 z"/>
+    <path d="M380 300 l6 13 14 1.5 -10.5 9.5 3 14 -12.5 -7.5 -12.5 7.5 3 -14 -10.5 -9.5 14 -1.5 z"/>
+  </g>
+
+  <!-- wordmark -->
+  <text x="220" y="322" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="800" font-size="46" letter-spacing="1" fill="#1c1a16">GOAT HUB</text>
+</svg>
