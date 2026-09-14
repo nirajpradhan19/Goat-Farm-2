@@ -90,7 +90,7 @@
   }
 
   function loadManifest() {
-    return fetch("/api/images/manifest", { cache: "no-store" })
+    return fetch("/api/images", { cache: "no-store" })
       .then(function (r) {
         return r.ok ? r.json() : {};
       })
@@ -177,14 +177,15 @@
       active: document.getElementById("productActive").value === "true",
     };
 
-    var url = "/api/admin/products";
     if (id) {
       payload.id = Number(id);
-      url = "/api/admin/product-update";
+      payload.action = "update";
+    } else {
+      payload.action = "create";
     }
 
     productError.hidden = true;
-    fetch(url, {
+    fetch("/api/products", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
@@ -229,10 +230,10 @@
       });
       tr.querySelector(".delete-product-btn").addEventListener("click", function () {
         if (!confirm('Delete "' + p.name + '"? Products used in past orders are deactivated instead of deleted.')) return;
-        fetch("/api/admin/product-delete", {
+        fetch("/api/products", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ id: p.id }),
+          body: JSON.stringify({ action: "delete", id: p.id }),
         })
           .then(function (r) {
             return r.json();
@@ -248,7 +249,7 @@
   function loadProducts() {
     productsLoading.hidden = false;
     productTableWrap.hidden = true;
-    fetch("/api/admin/products")
+    fetch("/api/products")
       .then(function (r) {
         return r.json().then(function (d) {
           return { ok: r.ok, data: d };
@@ -281,7 +282,7 @@
     ordersEmptyAdmin.hidden = true;
     adminOrdersList.innerHTML = "";
 
-    fetch("/api/admin/orders")
+    fetch("/api/admin-orders")
       .then(function (r) {
         return r.json();
       })
@@ -308,7 +309,7 @@
             select.appendChild(opt);
           });
           select.addEventListener("change", function () {
-            fetch("/api/admin/order-update", {
+            fetch("/api/admin-orders", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({ id: order.id, status: select.value }),
@@ -351,7 +352,7 @@
   }
 
   // ---- auth bootstrap ----
-  fetch("/api/check-auth")
+  fetch("/api/admin-auth")
     .then(function (r) {
       return r.json();
     })
@@ -371,10 +372,10 @@
     e.preventDefault();
     loginError.hidden = true;
     var password = document.getElementById("password").value;
-    fetch("/api/login", {
+    fetch("/api/admin-auth", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ password: password })
+      body: JSON.stringify({ action: "login", password: password })
     })
       .then(function (r) {
         return r.json().then(function (data) {
@@ -397,7 +398,11 @@
 
   // ---- logout ----
   logoutBtn.addEventListener("click", function () {
-    fetch("/api/logout", { method: "POST" }).finally(function () {
+    fetch("/api/admin-auth", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ action: "logout" })
+    }).finally(function () {
       showLogin();
     });
   });
@@ -429,10 +434,10 @@
       setCardMessage(card, "Uploading…");
       fileToBase64(file)
         .then(function (base64) {
-          return fetch("/api/images/upload", {
+          return fetch("/api/images", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ key: key, contentType: contentType, dataBase64: base64 })
+            body: JSON.stringify({ action: "upload", key: key, contentType: contentType, dataBase64: base64 })
           });
         })
         .then(function (r) {
@@ -460,10 +465,10 @@
     if (e.target.classList.contains("reset-btn")) {
       card.classList.add("busy");
       setCardMessage(card, "Resetting…");
-      fetch("/api/images/reset", {
+      fetch("/api/images", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ key: key })
+        body: JSON.stringify({ action: "reset", key: key })
       })
         .then(function (r) {
           return r.json().then(function (data) {

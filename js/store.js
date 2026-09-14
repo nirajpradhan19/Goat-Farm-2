@@ -228,7 +228,7 @@
     checkoutBtn.disabled = true;
     checkoutBtn.textContent = "Please wait…";
 
-    fetch("/api/auth/me")
+    fetch("/api/auth")
       .then(function (r) {
         return r.json();
       })
@@ -237,7 +237,7 @@
           window.location.href = "account.html?next=checkout";
           return;
         }
-        return fetch("/api/orders/checkout", {
+        return fetch("/api/orders", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ items: cart }),

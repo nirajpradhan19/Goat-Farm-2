@@ -53,10 +53,11 @@
   loginForm.addEventListener("submit", function (e) {
     e.preventDefault();
     loginError.hidden = true;
-    fetch("/api/auth/login", {
+    fetch("/api/auth", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
+        action: "login",
         email: document.getElementById("loginEmail").value,
         password: document.getElementById("loginPassword").value,
       }),
@@ -84,10 +85,11 @@
   signupForm.addEventListener("submit", function (e) {
     e.preventDefault();
     signupError.hidden = true;
-    fetch("/api/auth/signup", {
+    fetch("/api/auth", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
+        action: "signup",
         name: document.getElementById("signupName").value,
         email: document.getElementById("signupEmail").value,
         password: document.getElementById("signupPassword").value,
@@ -117,7 +119,7 @@
     if (params.get("next") === "checkout") {
       var cart = (window.GoatHubCart && window.GoatHubCart.getCart()) || [];
       if (cart.length > 0) {
-        fetch("/api/orders/checkout", {
+        fetch("/api/orders", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ items: cart }),
@@ -147,7 +149,11 @@
 
   // ---- logout ----
   logoutBtn.addEventListener("click", function () {
-    fetch("/api/auth/logout", { method: "POST" }).finally(function () {
+    fetch("/api/auth", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ action: "logout" }),
+    }).finally(function () {
       window.location.href = "account.html";
     });
   });
@@ -161,7 +167,7 @@
     loggedOutView.hidden = true;
     loggedInView.hidden = false;
 
-    fetch("/api/auth/me")
+    fetch("/api/auth")
       .then(function (r) {
         return r.json();
       })
@@ -183,7 +189,7 @@
     var sessionId = params.get("session_id");
     if (!sessionId) return;
 
-    fetch("/api/orders/confirm?session_id=" + encodeURIComponent(sessionId))
+    fetch("/api/orders?session_id=" + encodeURIComponent(sessionId))
       .then(function (r) {
         return r.json();
       })
@@ -204,7 +210,7 @@
     ordersEmpty.hidden = true;
     ordersList.innerHTML = "";
 
-    fetch("/api/orders/mine")
+    fetch("/api/orders")
       .then(function (r) {
         return r.json();
       })
@@ -241,7 +247,7 @@
   }
 
   // ---- bootstrap ----
-  fetch("/api/auth/me")
+  fetch("/api/auth")
     .then(function (r) {
       return r.json();
     })

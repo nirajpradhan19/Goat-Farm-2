@@ -5,7 +5,7 @@
 (function () {
   "use strict";
 
-  fetch("/api/images/manifest", { cache: "no-store" })
+  fetch("/api/images", { cache: "no-store" })
     .then(function (r) {
       return r.ok ? r.json() : {};
     })

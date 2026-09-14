@@ -1,16 +1,73 @@
-const { sql, ensureSchema, isConfigured: dbConfigured } = require('../_lib/db');
-const { requireUser } = require('../_lib/userAuth');
-const { getStripe, isConfigured: stripeConfigured, getSiteOrigin } = require('../_lib/stripeClient');
+const url = require('url');
+const { sql, ensureSchema, isConfigured: dbConfigured } = require('./_lib/db');
+const { requireUser } = require('./_lib/userAuth');
+const { getStripe, isConfigured: stripeConfigured, getSiteOrigin } = require('./_lib/stripeClient');
 
+// Consolidated customer orders endpoint (checkout / my orders / confirm
+// one order) — kept as one route rather than three to stay under
+// Vercel's per-deployment Serverless Function count limit.
 module.exports = async function handler(req, res) {
+  const userId = requireUser(req, res);
+  if (!userId) return;
+
+  if (req.method === 'GET') {
+    const { query } = url.parse(req.url, true);
+    const sessionId = typeof query.session_id === 'string' ? query.session_id : '';
+
+    if (!dbConfigured()) {
+      res.status(200).json(sessionId ? { order: null } : { orders: [] });
+      return;
+    }
+
+    try {
+      await ensureSchema();
+
+      if (sessionId) {
+        const orders = await sql`
+          SELECT id, status, total_cents, created_at
+          FROM orders WHERE stripe_session_id = ${sessionId} AND user_id = ${userId}
+        `;
+        if (orders.length === 0) {
+          res.status(404).json({ error: 'Order not found' });
+          return;
+        }
+        const order = orders[0];
+        const items = await sql`
+          SELECT product_name, unit_price_cents, quantity FROM order_items WHERE order_id = ${order.id}
+        `;
+        res.status(200).json({ order: { ...order, items } });
+        return;
+      }
+
+      const orders = await sql`
+        SELECT id, status, total_cents, created_at FROM orders
+        WHERE user_id = ${userId} ORDER BY created_at DESC
+      `;
+      const orderIds = orders.map((o) => o.id);
+      let itemsByOrder = new Map();
+      if (orderIds.length > 0) {
+        const items = await sql`
+          SELECT order_id, product_name, unit_price_cents, quantity
+          FROM order_items WHERE order_id = ANY(${orderIds})
+        `;
+        for (const item of items) {
+          if (!itemsByOrder.has(item.order_id)) itemsByOrder.set(item.order_id, []);
+          itemsByOrder.get(item.order_id).push(item);
+        }
+      }
+      res.status(200).json({ orders: orders.map((o) => ({ ...o, items: itemsByOrder.get(o.id) || [] })) });
+    } catch (err) {
+      res.status(500).json({ error: 'Could not load orders', detail: String(err && err.message ? err.message : err) });
+    }
+    return;
+  }
+
   if (req.method !== 'POST') {
     res.status(405).json({ error: 'Method not allowed' });
     return;
   }
 
-  const userId = requireUser(req, res);
-  if (!userId) return;
-
+  // ---- checkout ----
   let body = req.body;
   if (typeof body === 'string') {
     try { body = JSON.parse(body); } catch { body = {}; }
@@ -22,7 +79,6 @@ module.exports = async function handler(req, res) {
     return;
   }
 
-  // Normalize + validate the requested items shape before touching the DB.
   const requested = [];
   for (const item of items) {
     const productId = Number(item && item.productId);
@@ -53,12 +109,9 @@ module.exports = async function handler(req, res) {
     }
     const user = userRows[0];
 
-    // Look up current, authoritative price/stock/name for every requested
-    // product — the client's cart is never trusted for pricing.
     const ids = requested.map((r) => r.productId);
     const products = await sql`
-      SELECT id, name, price_cents, stock, active
-      FROM products
+      SELECT id, name, price_cents, stock, active FROM products
       WHERE id = ANY(${ids}) AND active = TRUE
     `;
     const byId = new Map(products.map((p) => [p.id, p]));
@@ -70,7 +123,7 @@ module.exports = async function handler(req, res) {
     for (const { productId, quantity } of requested) {
       const product = byId.get(productId);
       if (!product) {
-        res.status(400).json({ error: `A product in your cart is no longer available` });
+        res.status(400).json({ error: 'A product in your cart is no longer available' });
         return;
       }
       if (product.stock < quantity) {
@@ -80,18 +133,9 @@ module.exports = async function handler(req, res) {
       totalCents += product.price_cents * quantity;
       lineItems.push({
         quantity,
-        price_data: {
-          currency: 'usd',
-          unit_amount: product.price_cents,
-          product_data: { name: product.name },
-        },
+        price_data: { currency: 'usd', unit_amount: product.price_cents, product_data: { name: product.name } },
       });
-      orderItemsToInsert.push({
-        productId: product.id,
-        name: product.name,
-        priceCents: product.price_cents,
-        quantity,
-      });
+      orderItemsToInsert.push({ productId: product.id, name: product.name, priceCents: product.price_cents, quantity });
     }
 
     const origin = getSiteOrigin(req);
